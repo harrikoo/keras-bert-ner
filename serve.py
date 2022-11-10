@@ -5,7 +5,7 @@ import unicodedata
 from flask import Flask, request
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from common import process_sentences, load_ner_model
 from common import encode, write_result
@@ -18,7 +18,7 @@ DEFAULT_MODEL_DIR = 'ner-model'
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def tag():
     text = request.values['text']
     tokenized = request.values.get('tokenized') in ('1', 'True', 'true')
