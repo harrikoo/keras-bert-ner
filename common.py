@@ -80,7 +80,7 @@ def argument_parser(mode='train'):
         )
     if mode == 'serve':
         argparser.add_argument(
-            '--port', default=8080,
+            '--port', default=8003,
             help='Port to listen to'
         )
     argparser.add_argument(

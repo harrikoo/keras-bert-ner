@@ -12,8 +12,8 @@ from common import encode, write_result
 from common import argument_parser
 
 
-DEFAULT_MODEL_DIR = 'ner-model'
-
+DEFAULT_MODEL_DIR = 'combined-ext-model'
+DEFAULT_PORT = 8003
 
 app = Flask(__name__)
 
@@ -88,6 +88,16 @@ translation_table = str.maketrans({ c: ' '+c+' ' for c in punct_chars })
 def tokenize(text):
     return text.translate(translation_table).split()
 
+def start_app():
+    #argparser = argument_parser('serve')
+    #args = argparser.parse_args(argv[1:])
+    #if args.ner_model_dir is None:
+    #    args.ner_model_dir = DEFAULT_MODEL_DIR
+    app.tagger = Tagger.load(DEFAULT_MODEL_DIR)
+    #if args.port is None:
+    #    args.port = DEFAULT_PORT
+    #app.run(port=args.port)
+    return app
 
 def main(argv):
     argparser = argument_parser('serve')
@@ -95,6 +105,8 @@ def main(argv):
     if args.ner_model_dir is None:
         args.ner_model_dir = DEFAULT_MODEL_DIR
     app.tagger = Tagger.load(args.ner_model_dir)
+    if args.port is None:
+        args.port = DEFAULT_PORT
     app.run(port=args.port)
     return 0
 
