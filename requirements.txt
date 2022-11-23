@@ -1,3 +1,5 @@
+keras-bert
 keras==2.9.0
 tensorflow==2.9.1
-
+flask
+gunicorn
